@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spring入门 | Costin</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/blog/img/pwa/favicon.png"><link rel="stylesheet" href="/blog/css/index.css?v=3.0.21"><link rel="canonical" href="https://cons8.github.io/blog/2026/01/03/Spring/index.html"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><!-- Feature-specific CSS--><!-- aplayer--><!-- swiper--><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="Spring 来了首先Spring是Java中一个非常重要的框架，如果说Sun公司给予了Java生命，那么Spring则是Java生命的延续，所以Spring，必须要学。本文章将从Java程序开始讲起，到真正入门Spring，深呼吸，开始学习吧。 传统JavaWeb开发的问题如果只学过Java基"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="Costin"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/blog/img/pwa/favicon.png"><link rel="apple-touch-icon" href="/blog/img/pwa/favicon.png" sizes="180x180"><script>console.log(' %c Solitude %c ' + '3.0.21' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+
+                if (name && keyObj[name]) return
+
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+            },
+            diffDateFormat: (selector) => {
+                selector.forEach(item => {
+                    const date = new Date(item.getAttribute('datetime') || item.textContent);
+                    item.textContent = (date.getMonth() + 1).toString()+'/'+date.getDate().toString();
+                });
+            },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><script>const GLOBAL_CONFIG = {
+    root: '/blog/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2026-01-02 00:00:00',
+    lazyload: {
+        enable: false,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可"},
+    aside: {
+        state: {
+            morning: "✨ 早上好，新的一天开始了",
+            noon: "🍲 午餐时间",
+            afternoon: "🌞 下午好",
+            night: "早点休息",
+            goodnight: "晚安 😴",
+        },
+        witty_words: [],
+        witty_comment: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: false
+    },
+    comment: false,
+    lightbox: 'null',
+    right_menu: false,
+    translate: {"translateDelay":0,"defaultEncoding":2},
+    lure: false,
+    expire: false,
+};</script><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: false,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body id="body"><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude fas fa-xmark"></i></div><div class="console-card-group"><div class="console-card-group-right"><div class="console-card tags" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">标签</div><div class="author-content-item-title">寻找感兴趣的领域</div></div><div class="card-tag-cloud"><a href="/blog/tags/Spring/">Spring<sup>1</sup></a><a href="/blog/tags/Java/">Java<sup>1</sup></a><a href="/blog/tags/Hexo/">Hexo<sup>1</sup></a></div></div><div class="console-card history" onclick="sco.hideConsole()"><ul class="card-archive-list"><li class="item"><a href="/archives/2026/01/"><span class="date">2026/01</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/"><span class="date">全部文章</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li></ul></div></div></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude fas fa-circle-half-stroke"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude fas fa-arrows-left-right-to-line"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/blog/archives/"><div class="headline">文章</div><div class="length-num">2</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/blog/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/blog/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span>显示模式</span></span></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="card-tag-cloud"><a href="/blog/tags/Spring/">Spring<sup>1</sup></a><a href="/blog/tags/Java/">Java<sup>1</sup></a><a href="/blog/tags/Hexo/">Hexo<sup>1</sup></a></div></div><span class="sidebar-menu-item-title">网站信息</span><div class="webinfo"><div class="webinfo-item"><div class="item-name">全站字数 :</div><div class="item-count">832</div></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><a href="/blog/" title="返回博客主页" id="site-name"><span class="title">Costin</span><i class="solitude fas fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">Spring入门</a></div></div><div id="menus"></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude fas fa-arrow-up"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fas fa-bars"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="/blog/2026/01/03/Spring/cover.jpg" alt="Spring入门"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><span class="post-meta-categories"><a class="post-meta-categories" href="/blog/categories/%E4%B8%BB%E7%BA%BF%E4%BB%BB%E5%8A%A1/">主线任务</a></span><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/blog/tags/Spring/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>Spring</span></a><a class="post-meta__tags" href="/blog/tags/Java/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>Java</span></a></div></div></div></div><h1 class="post-title">Spring入门</h1><div id="post-meta"><div class="meta-secondline"><span class="post-meta-wordcount"><span class="post-meta-separator"></span></span></div></div></div><div class="post-radius-bottom"></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content article-container"><h1><span id="spring-来了">Spring 来了</span></h1><blockquote><p>首先Spring是Java中一个非常重要的框架，如果说Sun公司给予了Java生命，那么Spring则是Java生命的延续，所以Spring，必须要学。本文章将从Java程序开始讲起，到真正入门Spring，深呼吸，开始学习吧。</p>
+</blockquote>
+
+<h2><span id="传统javaweb开发的问题">传统JavaWeb开发的问题</span></h2><p>如果只学过Java基础语法，还未接触过JavaWeb开发的话，那么本章将介绍为什么要使用Spring进行开发。</p>
+<p>程序的核心作用，是帮我们实现各类业务需求，比如在手机&#x2F;电脑上看新闻、看视频，或是用计算软件做数学运算。Spring能帮我们高效开发业务功能的后端程序，这套后端程序最终部署在专用计算机（因对外提供互联网服务，也称为服务器）中，为前端提供数据和功能支持。</p>
+<p>而我们开发程序的核心工作，就是处理各类功能逻辑，Spring则通过优秀的设计思想，大幅降低我们实现业务功能的开发成本。</p>
+<p>其中Spring帮我们解决的传统JavaWeb开发的最重要的一些问题有如下几点：</p>
+<ul>
+<li><p><strong>问题（一）</strong>：程序代码耦合度高，导致牵一发而动全身，出现问题难以修改</p>
+<p><strong>Spring如何解决</strong>：程序代码中无需再手动new对象，需要的对象由Spring处理</p>
+</li>
+<li><p><strong>问题（二）</strong>：业务的功能代码与日志功能写在一起，功能职责不单一</p>
+<p><strong>Spring如何解决</strong>：创建业务对象的代理对象，将日志、事务等非业务功能抽取，统一织入到业务流程中，实现业务功能与非业务功能的解耦</p>
+</li>
+</ul>
+<h2><span id="ioc-di和aop思想">IOC、DI和AOP思想</span></h2><ul>
+<li><p>IOC（Inverison of Control），中文名称是<strong>控制反转</strong>，强调的是原来在程序中主动创建Bean的权利，反转给第三方。</p>
+</li>
+<li><p>DI（Dependency Injection），中文名称是<strong>依赖注入</strong>，强调的是Bean之间关系，这种关系第三方负责去维护</p>
+</li>
+<li><p>AOP(Aspect Oriented Programming)，中文名称是<strong>面向切面编程</strong>，功能的横向抽取，主要的实现方式就是Proxy</p>
+</li>
+</ul>
+<p>看不懂没关系，在学习了下面的内容后，相信会有很好的理解。</p>
+<h2><span id="框架">框架</span></h2><p>假设我们要盖一栋楼，需要先搭好一个架子，最后再基于架子进行修建。在软件开发中也是如此，只是现在我们无需再自己搭这个基础架子了 ——Spring 为我们提供了 Spring Framework，它就相当于软件开发的‘钢筋水泥架子’，提供了现成的基础支撑和解决方案，基于这个框架(Framework)，我们就能直接使用现成的工具和方案将精力集中在完成业务需求上。</p>
+<p>不同语言、不同领域都有属于自己的框架，在Java语言中可以分为基础框架和服务框架：</p>
+<ul>
+<li>基础框架： 完成基本业务操作的框架，如Spring、MyBatis、SpringMVC</li>
+<li>服务框架： 特定领域的框架，一般还可以对外提供服务框架，如Nacos、MQ、ES</li>
+</ul>
+<h2><span id="spring框架的诞生">Spring框架的诞生</span></h2></article><div class="post-copyright"><div class="post-copyright__author_group"><div class="post-copyright__author_img"><img class="post-copyright__author_img_front" src="/blog/img/logo.png"></div><div class="post-copyright__author_name">Costin</div><div class="post-copyright__author_desc"></div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/blog/">Costin</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/blog/tags/Spring/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>Spring<span class="tagsPageCount">1</span></span></a><a class="post-meta__tags" href="/blog/tags/Java/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>Java<span class="tagsPageCount">1</span></span></a></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="next-post pull-full"><a href="/blog/2026/01/03/%E4%BD%BF%E7%94%A8hexo%E6%9D%A5%E5%86%99%E4%B8%80%E7%AF%87%E7%AC%94%E8%AE%B0/"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用hexo来写一篇笔记</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="top-group"><div class="sayhi" id="sayhi" onclick="sco.changeWittyWord()"></div></div></div><div class="avatar"><img alt="头像" src="/blog/images/picture.png"></div><div class="description">再坚持一下</div><div class="bottom-group"><span class="left"><div class="name">Costin</div><div class="desc">只有迎风，风筝才能飞得更高。</div></span><div class="social-icons is-center"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude fas fa-bars"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Spring 来了</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">传统JavaWeb开发的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">IOC、DI和AOP思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">Spring框架的诞生</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="st-footer"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2026 By<a class="footer-bar-link" href="/blog/" title="Costin">Costin</a></div><div class="beian-group"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://hexo.io/" title="框架：Hexo">框架：Hexo</a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude" title="主题：Solitude">主题：Solitude</a></div></div><div class="footer-bar-right"></div></div></div><div class="comment-barrage needEndHide"></div></footer></div><div><!-- Critical scripts loaded synchronously--><script src="/blog/js/utils.js?v=3.0.21"></script><script src="/blog/js/main.js?v=3.0.21"></script><!-- Non-critical scripts loaded asynchronously--><script async src="/blog/js/third_party/waterfall.min.js?v=3.0.21"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><!-- Feature-specific scripts loaded asynchronously--><script defer src="/blog/js/tw_cn.js?v=3.0.21"></script><!-- UI enhancement scripts--><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><!-- Music player scripts--><!-- Cover color processing scripts--><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+utils.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!-- Search functionality--><!-- Right menu functionality--><div class="js-pjax"></div></div><!-- pjax--><script>let pjax = null;
+
+function initPjax() {
+    if (typeof Pjax === 'undefined') {
+        console.warn('Pjax is not loaded yet, retrying...');
+        setTimeout(initPjax, 100);
+        return;
+    }
+
+    pjax = new Pjax({
+        elements: 'a:not([target="_blank"])',
+        selectors: ["title","#body-wrap","#site-config","meta[name=\"description\"]",".js-pjax","meta[property^=\"og:\"]","#config-diff",".rs_show",".rs_hide"],
+        cacheBust: false,
+        analytics: false,
+        scrollRestoration: false
+    })
+
+    // 将 pjax 实例挂载到全局
+    window.pjax = pjax;
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    document.addEventListener('pjax:complete', () => {
+        window.refreshFn()
+
+        document.querySelectorAll('script[data-pjax]').forEach(item => {
+            const newScript = document.createElement('script')
+            const content = item.text || item.textContent || item.innerHTML || ""
+            Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+            newScript.appendChild(document.createTextNode(content))
+            item.parentNode.replaceChild(newScript, item)
+        })
+
+        GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+    })
+
+    document.addEventListener('pjax:error', (e) => {
+        if (e.request.status === 404) {
+            pjax.loadUrl('/404.html')
+        }
+    })
+}
+
+// 初始化 Pjax
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPjax);
+} else {
+    initPjax();
+}</script><!-- google adsense--></body></html>
+        <script>
+            const posts = ["2026/01/03/Spring/","2026/01/03/使用hexo来写一篇笔记/"];
+            function toRandomPost() {
+                const randomPost = posts[Math.floor(Math.random() * posts.length)];
+                pjax.loadUrl(GLOBAL_CONFIG.root + randomPost);
+            }
+        </script>
